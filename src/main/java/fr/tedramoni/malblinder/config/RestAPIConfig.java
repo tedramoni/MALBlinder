@@ -22,6 +22,8 @@ public class RestAPIConfig {
     private boolean recette;
     @Value( "${client.referer}" )
     private String referer;
+    @Value( "${mal.uri}" )
+    private String malUri;
 
 
     @Bean
@@ -32,6 +34,7 @@ public class RestAPIConfig {
         client.setMdp(mdp);
         client.setRecette(recette);
         client.setReferer(referer);
+        client.setMalUri(malUri);
         client.initClient();
         return client;
     }

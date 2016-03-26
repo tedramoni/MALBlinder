@@ -1,9 +1,10 @@
 package fr.tedramoni.malblinder.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.*;
+import com.sun.istack.internal.NotNull;
+import org.junit.Ignore;
 
+import javax.validation.constraints.Min;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -11,21 +12,19 @@ import java.util.Random;
 /**
  * Created by Ted on 22/03/2016.
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonRootName("anime")
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Anime {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("id")
     private Integer id;
+    @JsonProperty("titre")
     private String titre;
+    @JsonProperty("openings")
     private Map<Integer,Opening> openings;
-    @JsonIgnore
     private Random random;
 
-    public Anime(Integer id) {
-        this.id = id ;
-        openings = new HashMap<Integer, Opening>();
-        random = new Random();
+    public Anime() {
     }
 
     public Integer getId() {
@@ -54,7 +53,8 @@ public class Anime {
 
     @JsonIgnore
     public Opening getRandomOpening(){
-        int index = random.nextInt(openings.size());
+        random = new Random();
+        int index = random.nextInt(openings.size() - 1 + 1) + 1;
         return openings.get(index);
     }
 

@@ -1,6 +1,8 @@
 package fr.tedramoni.malblinder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.util.regex.Matcher;
@@ -9,15 +11,18 @@ import java.util.regex.Pattern;
 /**
  * Created by Ted on 22/03/2016.
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonRootName("opening")
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Opening {
+
+    @JsonProperty("id")
     private Integer id;
+    @JsonProperty("title")
     private String title;
+    @JsonProperty("artist")
     private String artist;
 
-    public Opening(Integer id) {
-        this.id=id;
+    public Opening() {
     }
 
     public String getTitle() {

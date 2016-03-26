@@ -1,0 +1,190 @@
+package fr.tedramoni.malblinder.client.youtube;
+
+/*
+ * Copyright (c) 2012 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.ResourceId;
+import com.google.api.services.youtube.model.SearchListResponse;
+import com.google.api.services.youtube.model.SearchResult;
+import com.google.api.services.youtube.model.Thumbnail;
+import fr.tedramoni.malblinder.model.Video;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.List;
+
+public class Search implements ISearch {
+    /**
+     * Define a global variable that identifies the name of a file that
+     * contains the developer's API key.
+     */
+    private String apiKey;
+
+    private static final long NUMBER_OF_VIDEOS_RETURNED = 1;
+
+    /**
+     * Define a global instance of a Youtube object, which will be used
+     * to make YouTube Data API requests.
+     */
+    private static YouTube youtube;
+
+    private static final Logger log = Logger.getLogger(Search.class.getName());
+
+    @Override
+    public Video go(String keywords) {
+        Video video = new Video();
+        try {
+            // This object is used to make YouTube Data API requests. The last
+            // argument is required, but since we don't need anything
+            // initialized when the HttpRequest is initialized, we override
+            // the interface and provide a no-op function.
+            youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer()
+            {
+                public void initialize(HttpRequest request) throws IOException {
+                }
+            }).setApplicationName("youtube-cmdline-search-sample").build();
+
+            // Define the API request for retrieving search results.
+            YouTube.Search.List search = youtube.search().list("id,snippet");
+
+            // Set your developer key from the Google Developers Console for
+            // non-authenticated requests. See:
+            // https://console.developers.google.com/
+            search.setKey(apiKey);
+            search.setQ(keywords);
+
+            // Restrict the search results to only include videos. See:
+            // https://developers.google.com/youtube/v3/docs/search/list#type
+            search.setType("video");
+
+            // To increase efficiency, only retrieve the fields that the
+            // application uses.
+            search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+            search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+
+            // Call the API and print results.
+            SearchListResponse searchResponse = search.execute();
+            List<SearchResult> searchResultList = searchResponse.getItems();
+            if (searchResultList != null) {
+                //prettyPrint(searchResultList.iterator(), keywords);
+                video = getVideo(searchResultList.iterator(), keywords);
+                return video;
+            }
+        } catch (GoogleJsonResponseException e) {
+            log.error("There was a service error: " + e.getDetails().getCode() + " : "
+                    + e.getDetails().getMessage());
+        } catch (IOException e) {
+            log.error("There was an IO error: " + e.getCause() + " : " + e.getMessage());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+        return video;
+    }
+
+    /*
+     * Prompt the user to enter a query term and return the user-specified term.
+     */
+    private static String getInputQuery() throws IOException {
+
+        String inputQuery = "";
+
+        System.out.print("Please enter a search term: ");
+        BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
+        inputQuery = bReader.readLine();
+
+        if (inputQuery.length() < 1) {
+            // Use the string "YouTube Developers Live" as a default.
+            inputQuery = "YouTube Developers Live";
+        }
+        return inputQuery;
+    }
+
+    /*
+     * Prints out all results in the Iterator. For each result, print the
+     * title, video ID, and thumbnail.
+     *
+     * @param iteratorSearchResults Iterator of SearchResults to print
+     *
+     * @param query Search query (String)
+     */
+    private static void prettyPrint(Iterator<SearchResult> iteratorSearchResults, String query) {
+
+        log.debug("\n=============================================================");
+        log.debug(
+                "   First " + NUMBER_OF_VIDEOS_RETURNED + " videos for search on \"" + query + "\".");
+        log.debug("=============================================================\n");
+
+        if (!iteratorSearchResults.hasNext()) {
+            log.debug(" There aren't any results for your query.");
+        }
+
+        while (iteratorSearchResults.hasNext()) {
+
+            SearchResult singleVideo = iteratorSearchResults.next();
+            ResourceId rId = singleVideo.getId();
+
+            // Confirm that the result represents a video. Otherwise, the
+            // item will not contain a video ID.
+            if (rId.getKind().equals("youtube#video")) {
+                Thumbnail thumbnail = singleVideo.getSnippet().getThumbnails().getDefault();
+
+                log.debug(" Video Id" + rId.getVideoId());
+                log.debug(" Title: " + singleVideo.getSnippet().getTitle());
+                log.debug(" Thumbnail: " + thumbnail.getUrl());
+                log.debug("\n-------------------------------------------------------------\n");
+            }
+        }
+    }
+
+    private static Video getVideo(Iterator<SearchResult> iteratorSearchResults, String query) {
+        Video video = new Video();
+        if (!iteratorSearchResults.hasNext()) {
+            log.debug(" There aren't any results for your query.");
+        }
+
+        while (iteratorSearchResults.hasNext()) {
+
+            SearchResult singleVideo = iteratorSearchResults.next();
+            ResourceId rId = singleVideo.getId();
+
+            // Confirm that the result represents a video. Otherwise, the
+            // item will not contain a video ID.
+            if (rId.getKind().equals("youtube#video")) {
+                Thumbnail thumbnail = singleVideo.getSnippet().getThumbnails().getDefault();
+                video = new Video(thumbnail.getUrl(), rId.getVideoId());
+                return video;
+            }
+        }
+
+        return video;
+    }
+
+    public Search() {
+    }
+
+    @Override
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+}

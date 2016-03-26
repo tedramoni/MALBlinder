@@ -10,7 +10,19 @@
 </head>
 <body>
 <div id="content">
-<p th:text="${'API : '+ping?'OK':'NOK'}"></p>
+<p th:text="${'API : '}+${ping?'OK':'NOK'}"></p>
+    <br/>
+    <form th:action="@{/do}" th:method="post">
+        <label>Entrer l'id de l'anime pour récupérer ses openings</label>
+        <input th:name="id" th:id="id" th:type="number"/>
+        <button th:type="submit">Envoyer</button>
+    </form>
+    <br/>
+    <form th:action="@{/getAnimeList}" th:method="post">
+        <label>Entrer votre pseudo</label>
+        <input th:name="pseudo" th:id="pseudo" th:type="text"/>
+        <button th:type="submit">Envoyer</button>
+    </form>
 </div>
 </body>
 </html>

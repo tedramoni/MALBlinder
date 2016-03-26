@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>MALBlinder</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/styles/malblinder.css}"/>
+</head>
+<body>
+<div id="content">
+    <h1 th:text="${anime.getTitre() +' (id: '+anime.getId()+')'}"/>
+    <hr/>
+    <h2>Openings</h2>
+    <p th:each="i: ${#numbers.sequence(1, (anime.getOpenings().size()))}" th:text="${anime.getOpening(i).getTitle() + ' de ' + anime.getOpening(i).getArtist()}"/>
+    <hr/>
+    <h2 th:text="${'Random Opening : ('+opening.getTitle()+' '+opening.getArtist()+')'}"></h2>
+    <img th:src="${video.getImageLink()}"/>
+    <br/>
+    <iframe th:src="${'https://www.youtube.com/embed/'+video.getVideoId()+'?autoplay=1'}" frameborder="0"></iframe>
+</div>
+</body>
+</html>

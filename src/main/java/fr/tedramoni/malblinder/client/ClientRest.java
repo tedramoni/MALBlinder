@@ -32,6 +32,7 @@ public class ClientRest implements IClientRest{
     private String mdp;
     private boolean recette;
     private String referer;
+    private String malUri;
 
     private Client client;
 
@@ -134,6 +135,10 @@ public class ClientRest implements IClientRest{
         this.referer = referer;
     }
 
+    public void setMalUri(String malUri) {
+        this.malUri = malUri;
+    }
+
     public void setClient(Client client) {
         this.client = client;
     }
@@ -160,10 +165,18 @@ public class ClientRest implements IClientRest{
     public Response getAnime(String id) {
         WebTarget target =client.target(uri);
         Response response = target.
-                path("declarant/myAccount").
+                path("anime/"+id).
                 request().
                 header("Referer", this.referer).
                 header("Content-Type", "application/json;charset=UTF-8").
+                get(Response.class);
+        return response;
+    }
+
+    public Response getAnimeList(String pseudo) {
+        WebTarget target =client.target(malUri+"?u="+pseudo+"&status=completed&status=onhold&type=anime");
+        Response response = target.
+                request().
                 get(Response.class);
         return response;
     }
