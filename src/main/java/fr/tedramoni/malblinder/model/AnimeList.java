@@ -1,5 +1,7 @@
 package fr.tedramoni.malblinder.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,10 +9,15 @@ import java.util.Random;
 /**
  * Created by Ted on 22/03/2016.
  */
+@XmlRootElement(name = "myanimelist")
 public class AnimeList {
+
     private Integer id;
-    User user;
-    List<Anime> animes;
+
+    private User user;
+
+    private List<Anime> animes;
+
     private Random random;
 
     public AnimeList(int id) {
@@ -19,10 +26,14 @@ public class AnimeList {
         random = new Random();
     }
 
+    public AnimeList() {
+    }
+
     public User getUser() {
         return user;
     }
 
+    @XmlElement(name="myinfo")
     public void setUser(User user) {
         this.user = user;
     }
@@ -31,15 +42,24 @@ public class AnimeList {
         return animes;
     }
 
-    public void addAnime(Anime anime){
+    @XmlElement(name="anime")
+    public void setAnimes(List<Anime> animes) {
+        this.animes = animes;
+    }
+
+    public void addAnime(Anime anime) {
         this.animes.add(anime);
     }
 
-    public Anime getAnime(int index){
+    public Anime getAnime(int index) {
         return this.animes.get(index);
     }
 
-    public Anime getRandomAnime(){
+    public void setAnime(int index, Anime anime) {
+        animes.set(index, anime);
+    }
+
+    public Anime getRandomAnime() {
         int index = random.nextInt(animes.size());
         return this.animes.get(index);
     }
@@ -51,5 +71,9 @@ public class AnimeList {
                 ", user=" + user +
                 ", animes=" + animes +
                 '}';
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

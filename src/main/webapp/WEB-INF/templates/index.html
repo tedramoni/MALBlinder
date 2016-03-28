@@ -3,26 +3,62 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"/> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"/> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"/> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"/> <!--<![endif]-->
+
 <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>MALBlinder</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/styles/malblinder.css}"/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+
+    <link rel="stylesheet" th:href="@{/styles/normalize.min.css}"/>
+    <link rel="stylesheet" th:href="@{/styles/malblinder.css}"/>
+
+    <script th:src="@{/ressources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
 </head>
 <body>
-<div id="content">
-<p th:text="${'API : '}+${ping?'OK':'NOK'}"></p>
-    <br/>
-    <form th:action="@{/do}" th:method="post">
-        <label>Entrer l'id de l'anime pour récupérer ses openings</label>
-        <input th:name="id" th:id="id" th:type="number" th:required="required"/>
-        <button th:type="submit">Envoyer</button>
-    </form>
-    <br/>
-    <form th:action="@{/getAnimeList}" th:method="post">
-        <label>Entrer votre pseudo</label>
-        <input th:name="pseudo" th:id="pseudo" th:type="text" th:required="required"/>
-        <button th:type="submit">Envoyer</button>
-    </form>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<div th:include="layout/commun :: header"></div>
+<div class="main-container">
+    <div class="main wrapper clearfix">
+        <br/>
+        <article>
+        <form th:action="@{/do}" th:method="post">
+            <label>Entrer l'id de l'anime pour récupérer ses openings</label><br/>
+            <input th:name="id" th:id="id" th:type="number" th:required="required"/><br/>
+            <button th:type="submit">Envoyer</button>
+        </form>
+        <br/>
+        <form th:action="@{/getAnimeList}" th:method="post">
+            <label>Entrer votre pseudo</label><br/>
+            <input th:name="pseudo" th:id="pseudo" th:type="text" th:required="required"/><br/>
+            <button th:type="submit">Envoyer</button>
+        </form>
+        </article>
+        <aside>
+            <h3>Etats des APIs</h3>
+            <p>MALOPAPI: <span th:class="${ping?'green':'red'}" th:text="${ping?'OK':'NOK'}"></span></p>
+            <p>MAL: <span th:class="${ping?'green':'red'}" th:text="${ping?'OK':'NOK'}"></span></p>
+            <p>YOUTUBE v3: <span th:class="${ping?'green':'red'}" th:text="${ping?'OK':'NOK'}"></span></p>
+        </aside>
+    </div>
 </div>
+<div th:include="layout/commun :: footer"></div>
 </body>
 </html>

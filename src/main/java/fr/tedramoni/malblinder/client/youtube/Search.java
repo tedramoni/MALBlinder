@@ -73,6 +73,7 @@ public class Search implements ISearch {
             // https://console.developers.google.com/
             search.setKey(apiKey);
             search.setQ(keywords);
+            search.setVideoEmbeddable("true");
 
             // Restrict the search results to only include videos. See:
             // https://developers.google.com/youtube/v3/docs/search/list#type

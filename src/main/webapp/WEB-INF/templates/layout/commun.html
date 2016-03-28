@@ -1,0 +1,47 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header">
+    <div class="header-container">
+        <header class="wrapper clearfix">
+            <h1 class="title">MALBlinder</h1>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/}">Accueil</a></li>
+                    <li><a th:href="@{/}">Infos</a></li>
+                    <li><a th:href="@{/}">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+</div>
+
+<div th:fragment="footer">
+    <div class="footer-container">
+        <footer class="wrapper">
+            <h3>&copy; 2016 MALBlinder by <a href="http://tedramoni.github.io/monportfolio/">Ted RAMONI</a></h3>
+        </footer>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script th:src="@{/ressources/js/vendor/jquery-1.11.2.min.js}"></script>
+
+    <script th:src="@{/ressources/js/main.js}"></script>
+
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+                function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-75664806-1','auto');ga('send','pageview');
+    </script>
+</div>
+
+</body>
+</html>

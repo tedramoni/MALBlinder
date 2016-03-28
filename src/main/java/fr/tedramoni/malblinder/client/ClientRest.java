@@ -59,10 +59,12 @@ public class ClientRest implements IClientRest{
             handler.setFormatter(new SimpleFormatter());
             log.addHandler(handler);
             client.register(new LoggingFilter(log, true));
-            // AJOUT DE L'AUTHENT
-            HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(login, mdp);
-            client.register(feature);
         }
+
+        // AJOUT DE L'AUTHENT
+        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(login, mdp);
+        client.register(feature);
+
         this.client = client;
     }
 
@@ -174,7 +176,7 @@ public class ClientRest implements IClientRest{
     }
 
     public Response getAnimeList(String pseudo) {
-        WebTarget target =client.target(malUri+"?u="+pseudo+"&status=completed&status=onhold&type=anime");
+        WebTarget target =client.target(malUri+"?u="+pseudo+"&status=all&type=anime");
         Response response = target.
                 request().
                 get(Response.class);

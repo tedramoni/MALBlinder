@@ -99,6 +99,5 @@
             <artifactId>google-api-services-youtube</artifactId>
             <version>v3-rev163-1.21.0</version>
         </dependency>
-
     </dependencies>
 </project>

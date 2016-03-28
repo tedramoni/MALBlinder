@@ -5,6 +5,8 @@ import com.sun.istack.internal.NotNull;
 import org.junit.Ignore;
 
 import javax.validation.constraints.Min;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -14,14 +16,18 @@ import java.util.Random;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@XmlRootElement(name = "anime")
 public class Anime {
 
     @JsonProperty("id")
     private Integer id;
+
     @JsonProperty("titre")
     private String titre;
+
     @JsonProperty("openings")
     private Map<Integer,Opening> openings;
+
     private Random random;
 
     public Anime() {
@@ -31,6 +37,7 @@ public class Anime {
         return id;
     }
 
+    @XmlElement(name="series_animedb_id")
     public void setId(Integer id) {
         this.id = id;
     }
@@ -39,6 +46,7 @@ public class Anime {
         return titre;
     }
 
+    @XmlElement(name="series_title")
     public void setTitre(String titre) {
         this.titre = titre;
     }
@@ -53,9 +61,9 @@ public class Anime {
 
     @JsonIgnore
     public Opening getRandomOpening(){
-        random = new Random();
-        int index = random.nextInt(openings.size() - 1 + 1) + 1;
-        return openings.get(index);
+            random = new Random();
+            int index = random.nextInt(openings.size() - 1 + 1) + 1;
+            return openings.get(index);
     }
 
     public void addOpening(Integer id, Opening opening){
