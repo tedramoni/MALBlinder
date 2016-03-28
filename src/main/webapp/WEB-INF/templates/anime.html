@@ -38,12 +38,14 @@
             <br/>
         </div>
         <hr/>
+            <div th:if="${anime.getOpenings().size() gt 0}">
         <h2 th:if="${opening!=null}"
             th:text="${'Random Opening : ('+opening.getTitle()+' '+opening.getArtist()+')'}"></h2>
         <img th:if="${opening!=null}" th:src="${video.getImageLink()}"/>
         <br/>
         <iframe width="560" height="315" th:src="${'https://www.youtube.com/embed/'+video.getVideoId()+'?autoplay=1'}"
                 frameborder="0"></iframe>
+                </div>
         </article>
     </div>
 </div>

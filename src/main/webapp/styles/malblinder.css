@@ -1,6 +1,6 @@
 
 html {
-    height:100%;
+    height: 100%;
     color: #222;
     font-size: 1em;
     line-height: 1.4;
@@ -107,12 +107,11 @@ nav a {
     background: #e1e7f5;
 }
 
-nav a:hover
-{
+nav a:hover {
     color: white;
 }
 
-nav a:visited{
+nav a:visited {
     color: black;
 }
 
@@ -125,7 +124,7 @@ nav a:hover {
    ============== */
 
 .main {
-    padding: 30px 0;
+    padding: 20px 0;
 }
 
 .main article h1 {
@@ -139,7 +138,7 @@ nav a:hover {
 
 .footer-container footer {
     color: white;
-    padding: 20px 0;
+    padding: 0 0;
 }
 
 /* ===============
@@ -154,14 +153,14 @@ nav a:hover {
    Custom Styles
    ========================================================================== */
 
-.main-container{
+.main-container {
     height: 100%;
     min-height: 100%;
     margin-top: 56px;
     margin-bottom: -104px;
 }
 
-.footer-container a:visited{
+.footer-container a:visited {
     color: white;
 }
 
@@ -170,73 +169,77 @@ nav a:hover {
     display: block;
 }
 
-.footer-container, .main-container:after{
-    height: 104px;
-    clear:both;
-    position:fixed;
-    bottom:0;
+.footer-container, .main-container:after {
+    height: 52px;
+    clear: both;
+    position: fixed;
+    bottom: 0;
     min-width: 100%;
 }
 
 .green {
-    color:lawngreen;
+    color: lawngreen;
 }
 
 .red {
-    color:red;
+    color: red;
 }
 
 button {
-    -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-    background-color:#1d439b;
-    -webkit-border-top-left-radius:37px;
-    -moz-border-radius-topleft:37px;
-    border-top-left-radius:37px;
-    -webkit-border-top-right-radius:0px;
-    -moz-border-radius-topright:0px;
-    border-top-right-radius:0px;
-    -webkit-border-bottom-right-radius:37px;
-    -moz-border-radius-bottomright:37px;
-    border-bottom-right-radius:37px;
-    -webkit-border-bottom-left-radius:0px;
-    -moz-border-radius-bottomleft:0px;
-    border-bottom-left-radius:0px;
-    text-indent:0;
-    border:1px solid #84bbf3;
-    display:inline-block;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:15px;
-    font-weight:bold;
-    font-style:normal;
-    height:65px;
-    line-height:65px;
-    width:131px;
-    text-decoration:none;
-    text-align:center;
-    text-shadow:1px 1px 0px #528ecc;
-    margin-top:5px;
-}button:hover {
-     background-color:#e1e7f5;
-     color:black;
- }button:active {
-      position:relative;
-      top:1px;
-   }
+    -moz-box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+    box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+    background-color: #1d439b;
+    -webkit-border-top-left-radius: 37px;
+    -moz-border-radius-topleft: 37px;
+    border-top-left-radius: 37px;
+    -webkit-border-top-right-radius: 0px;
+    -moz-border-radius-topright: 0px;
+    border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 37px;
+    -moz-border-radius-bottomright: 37px;
+    border-bottom-right-radius: 37px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-bottom-left-radius: 0px;
+    text-indent: 0;
+    border: 1px solid #84bbf3;
+    display: inline-block;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    font-style: normal;
+    height: 65px;
+    line-height: 65px;
+    width: 131px;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 1px 1px 0px #528ecc;
+    margin-top: 5px;
+}
+
+button:hover {
+    background-color: #e1e7f5;
+    color: black;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+}
 
 input {
-    color:#3c3c3c;
+    color: #3c3c3c;
     font-family: Helvetica, Arial, sans-serif;
-    font-weight:500;
+    font-weight: 500;
     font-size: 18px;
     border-radius: 0;
     line-height: 22px;
     background-color: #fbfbfb;
     padding: 13px 13px 13px 54px;
     margin-bottom: 10px;
-    width:100%;
+    width: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -244,7 +247,7 @@ input {
     border: 3px solid #e1e7f5;
 }
 
-input:focus{
+input:focus {
     background: #fff;
     box-shadow: 0;
     border: 3px solid #1d439b;
@@ -255,34 +258,93 @@ input:focus{
 
 input:hover, textarea:hover,
 input:focus, textarea:focus {
-    background-color:white;
+    background-color: white;
 }
 
 label {
     font-family: Helvetica;
     font-size: 16px;
     font-weight: bold;
-    margin-bot:2px;
+    margin-bot: 2px;
 }
 
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /*height: 100px;*/
+    overflow: hidden;
+    -webkit-transition: height 0.3s;
+    -moz-transition: height 0.3s;
+    transition: height 0.3s;
+    /*text-align:center;
+    line-height:160px;*/
 
+}
 
+.header-container.shrink {
+    height: 50px;
+    /*line-height:80px;*/
+}
 
+.header-container h1 {
+    font-size: 30px;
+    font-weight: normal;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    line-height: 35px;
+}
 
+.header-container.shrink h1 {
+    font-size: 24px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    line-height: 18px;
+}
 
+.header-container ul {
+    font-size: 16px;
+}
+
+.header-container.shrink ul {
+    font-size: 13px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    line-height: 1px;
+}
 
 /* ==========================================================================
    Media Queries
    ========================================================================== */
 
+@media only screen and (max-width: 480px) {
+    /* ====================
+    INTERMEDIATE: Main
+   ==================== */
+    .main {
+        padding: 280px 0;
+    }
+}
+
 @media only screen and (min-width: 480px) {
 
-/* ====================
-    INTERMEDIATE: Menu
-   ==================== */
+    /* ====================
+        INTERMEDIATE: Main
+       ==================== */
+    .main {
+        padding: 150px 0;
+    }
 
+    /* ====================
+        INTERMEDIATE: Menu
+       ==================== */
     nav a {
-        color:black;
+        color: black;
         float: left;
         width: 27%;
         margin: 0 1.7%;
@@ -298,10 +360,9 @@ label {
         margin-right: 0;
     }
 
-/* ========================
-    INTERMEDIATE: IE Fixes
-   ======================== */
-
+    /* ========================
+        INTERMEDIATE: IE Fixes
+       ======================== */
     nav ul li {
         display: inline;
     }
@@ -313,21 +374,26 @@ label {
 
 @media only screen and (min-width: 768px) {
 
-/* ====================
-    WIDE: CSS3 Effects
+    /* ====================
+    INTERMEDIATE: Main
    ==================== */
+    .main {
+        padding: 60px 0;
+    }
 
+    /* ====================
+        WIDE: CSS3 Effects
+       ==================== */
     .header-container,
     .main aside {
         -webkit-box-shadow: 0 5px 10px #aaa;
-           -moz-box-shadow: 0 5px 10px #aaa;
-                box-shadow: 0 5px 10px #aaa;
+        -moz-box-shadow: 0 5px 10px #aaa;
+        box-shadow: 0 5px 10px #aaa;
     }
 
-/* ============
-    WIDE: Menu
-   ============ */
-
+    /* ============
+        WIDE: Menu
+       ============ */
     .title {
         float: left;
     }
@@ -336,10 +402,6 @@ label {
         float: right;
         width: 38%;
     }
-
-/* ============
-    WIDE: Main
-   ============ */
 
     .main article {
         float: left;
@@ -354,10 +416,16 @@ label {
 
 @media only screen and (min-width: 1140px) {
 
-/* ===============
-    Maximal Width
-   =============== */
+    /* ====================
+        INTERMEDIATE: Main
+       ==================== */
+    .main {
+        padding: 60px 0;
+    }
 
+    /* ===============
+        Maximal Width
+       =============== */
     .wrapper {
         width: 1026px; /* 1140px - 10% for margins */
         margin: 0 auto;

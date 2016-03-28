@@ -65,13 +65,14 @@ public class ClientTest {
 
     @Test
     public void testGetAnimeVideo() {
-        Response reponse = client.getAnime("21");
+        Response reponse = client.getAnime("5081");
         ObjectMapper mapper = new ObjectMapper();
         Anime anime = null;
         try {
             anime = mapper.readValue(reponse.readEntity(String.class), Anime.class);
             Opening opening = anime.getRandomOpening();
-            String keywords = opening.getTitle() + ' ' + opening.getArtist();
+            String keywords = opening.getTitle() + " " + opening.getArtist();
+            log.debug(keywords);
             Video video = search.go(keywords);
             log.debug(video);
         } catch (JsonParseException e1) {
@@ -81,7 +82,7 @@ public class ClientTest {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        assertEquals("One Piece", anime.getTitre());
+        assertEquals("Bakemonogatari", anime.getTitre());
     }
 
     @Test

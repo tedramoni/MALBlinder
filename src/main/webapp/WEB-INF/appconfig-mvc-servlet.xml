@@ -16,6 +16,7 @@
     <mvc:annotation-driven/>
 
     <mvc:resources location="/ressources/images/" mapping="/ressources/images/**" />
+    <mvc:resources location="/ressources/js/" mapping="/ressources/js/**" />
     <mvc:resources location="/styles/" mapping="/styles/**" />
 
     <bean id="templateResolver"
