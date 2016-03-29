@@ -77,3 +77,4 @@ public class AnimeList {
         this.id = id;
     }
 }
+

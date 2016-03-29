@@ -16,4 +16,7 @@ public interface IClientRest {
 
     public Response getAnimeList(String pseudo);
 
-    }
+    public Response searchAnime(String keyword);
+
+
+}

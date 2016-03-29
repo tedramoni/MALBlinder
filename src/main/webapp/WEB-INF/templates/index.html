@@ -39,17 +39,23 @@
     <div class="main wrapper clearfix">
         <br/>
         <article>
-        <form th:action="@{/do}" th:method="post">
-            <label>Entrer l'id de l'anime pour récupérer ses openings</label><br/>
-            <input th:name="id" th:id="id" th:type="number" th:required="required"/><br/>
-            <button th:type="submit">Envoyer</button>
-        </form>
-        <br/>
-        <form th:action="@{/getAnimeList}" th:method="post">
-            <label>Entrer votre pseudo</label><br/>
-            <input th:name="pseudo" th:id="pseudo" th:type="text" th:required="required"/><br/>
-            <button th:type="submit">Envoyer</button>
-        </form>
+            <form th:action="@{/do}" th:method="post">
+                <label>Entrer l'id de l'anime pour récupérer ses openings</label><br/>
+                <input th:name="id" th:id="id" th:type="number" th:required="required" th:min="1"/><br/>
+                <button th:type="submit">Envoyer</button>
+            </form>
+            <br/>
+            <form th:action="@{/searchAnime}" th:method="post">
+                <label>Entrer le nom d'un anime</label><br/>
+                <input th:name="keyword" th:id="keyword" th:type="text" th:required="required"/><br/>
+                <button th:type="submit">Envoyer</button>
+            </form>
+            <br/>
+            <form th:action="@{/getAnimeList}" th:method="post">
+                <label>Entrer votre pseudo</label><br/>
+                <input th:name="pseudo" th:id="pseudo" th:type="text" th:required="required"/><br/>
+                <button th:type="submit">Envoyer</button>
+            </form>
         </article>
         <br/>
         <aside>

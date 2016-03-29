@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.tedramoni.malblinder.client.IClientRest;
 import fr.tedramoni.malblinder.client.youtube.ISearch;
-import fr.tedramoni.malblinder.model.Anime;
-import fr.tedramoni.malblinder.model.AnimeList;
-import fr.tedramoni.malblinder.model.Opening;
-import fr.tedramoni.malblinder.model.Video;
+import fr.tedramoni.malblinder.model.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -108,6 +105,27 @@ public class Accueil {
             return new ModelAndView("redirect:/erreur");
         }
         return new ModelAndView("animeList", "model", model);
+    }
+
+    @RequestMapping(value = "/searchAnime", method = RequestMethod.POST)
+    public ModelAndView searchAnime(HttpServletRequest request, Model model) {
+        String keyword = request.getParameter("keyword");
+        keyword = keyword.replaceAll("\\s","");
+        Response reponse = clientRest.searchAnime(keyword);
+        SearchList searchList = null;
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(SearchList.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            StringReader reader = new StringReader(reponse.readEntity(String.class));
+            searchList = (SearchList) jaxbUnmarshaller.unmarshal(reader);
+            if(searchList.getEntry().size()==0){
+                return new ModelAndView("redirect:/erreur");
+            }
+            model.addAttribute("searchList", searchList);
+        } catch (JAXBException e) {
+            return new ModelAndView("redirect:/erreur");
+        }
+        return new ModelAndView("searchAnimeResult", "model", model);
     }
 
     @RequestMapping(value = "/erreur")

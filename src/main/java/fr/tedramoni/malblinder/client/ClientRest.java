@@ -183,4 +183,12 @@ public class ClientRest implements IClientRest{
         return response;
     }
 
+    public Response searchAnime(String keyword) {
+        WebTarget target =client.target("http://myanimelist.net/api/anime/search.xml?q="+keyword);
+        Response response = target.
+                request().
+                get(Response.class);
+        return response;
+    }
+
 }

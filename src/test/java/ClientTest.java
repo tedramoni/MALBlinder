@@ -6,10 +6,7 @@ import fr.tedramoni.malblinder.client.IClientRest;
 import fr.tedramoni.malblinder.client.youtube.ISearch;
 import fr.tedramoni.malblinder.config.RestAPIConfig;
 import fr.tedramoni.malblinder.config.RestYoutubeConfig;
-import fr.tedramoni.malblinder.model.Anime;
-import fr.tedramoni.malblinder.model.AnimeList;
-import fr.tedramoni.malblinder.model.Opening;
-import fr.tedramoni.malblinder.model.Video;
+import fr.tedramoni.malblinder.model.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -135,5 +132,21 @@ public class ClientTest {
         }
         log.debug(animeList.getAnimes().size());
         assertEquals("Speleo99", animeList.getUser().getUsername());
+    }
+
+    @Test
+    public void searchAnime() {
+        Response reponse = client.searchAnime("bleach");
+        SearchList searchList = null;
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(SearchList.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            StringReader reader = new StringReader(reponse.readEntity(String.class));
+            searchList = (SearchList) jaxbUnmarshaller.unmarshal(reader);
+            log.debug(searchList);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        assertEquals((Integer) 269, searchList.getEntry().get(0).getId());
     }
 }
