@@ -110,7 +110,7 @@ public class Accueil {
     @RequestMapping(value = "/searchAnime", method = RequestMethod.POST)
     public ModelAndView searchAnime(HttpServletRequest request, Model model) {
         String keyword = request.getParameter("keyword");
-        keyword = keyword.replaceAll("\\s","");
+        keyword = keyword.replaceAll("\\s","+");
         Response reponse = clientRest.searchAnime(keyword);
         SearchList searchList = null;
         try {
