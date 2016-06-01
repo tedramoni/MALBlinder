@@ -28,6 +28,8 @@ public class Anime {
     @JsonProperty("openings")
     private Map<Integer,Opening> openings;
 
+    private String img;
+
     private Random random;
 
     public Anime() {
@@ -49,6 +51,15 @@ public class Anime {
     @XmlElement(name="series_title")
     public void setTitre(String titre) {
         this.titre = titre;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    @XmlElement(name="series_image")
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Map<Integer, Opening> getOpenings() {

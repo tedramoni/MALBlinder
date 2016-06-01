@@ -35,6 +35,7 @@
         <h2>Animes</h2>
         <section th:each="i: ${#numbers.sequence(1, (animeList.getAnimes().size()-1))}">
             <p th:text="${animeList.getAnime(i).getTitre()}"/>
+            <img th:src="${animeList.getAnime(i).getImg()}"/>
             <form th:action="@{/do}" th:method="post">
                 <input th:hidden="hidden" th:name="id" th:id="id" th:type="number"
                        th:value="${animeList.getAnime(i).getId()}"/>

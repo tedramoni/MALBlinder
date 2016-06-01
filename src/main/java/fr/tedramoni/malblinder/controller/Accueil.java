@@ -43,7 +43,7 @@ public class Accueil {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView accueil(HttpServletRequest request, Model model) {
         Boolean ping = clientRest.ping();
-        model.addAttribute("ping",ping);
+        request.getSession().setAttribute("ping", ping);
         return new ModelAndView("index", "model", model);
     }
 
@@ -77,11 +77,17 @@ public class Accueil {
             }
 
         } catch (JsonParseException e1) {
-            return new ModelAndView("redirect:/erreur");
+            String erreur = "Aucun anime avec cet id trouvé !";
+            model.addAttribute("erreur", erreur);
+            return new ModelAndView("index", "model", model);
         } catch (JsonMappingException e1) {
-            return new ModelAndView("redirect:/erreur");
+            String erreur = "Aucun anime avec cet id trouvé !";
+            model.addAttribute("erreur", erreur);
+            return new ModelAndView("index", "model", model);
         } catch (IOException e1) {
-            return new ModelAndView("redirect:/erreur");
+            String erreur = "Aucun anime avec cet id trouvé !";
+            model.addAttribute("erreur", erreur);
+            return new ModelAndView("index", "model", model);
         }
         return new ModelAndView("anime", "model", model);
     }
@@ -89,6 +95,8 @@ public class Accueil {
     @RequestMapping(value = "/getAnimeList", method = RequestMethod.POST)
     public ModelAndView getAnimeList(HttpServletRequest request, Model model) {
         String pseudo = request.getParameter("pseudo");
+        pseudo = pseudo.trim();
+        pseudo = pseudo.replaceAll("\\s","+");
         Response reponse = clientRest.getAnimeList(pseudo);
         AnimeList animeList = null;
         try {
@@ -97,12 +105,16 @@ public class Accueil {
             StringReader reader = new StringReader(reponse.readEntity(String.class));
             animeList = (AnimeList) jaxbUnmarshaller.unmarshal(reader);
             animeList.setId(1);
-            if(animeList.getUser().getUsername().isEmpty() || animeList.getUser().getUsername() == null){
-                return new ModelAndView("redirect:/erreur");
+            if(animeList.getUser() == null ||animeList.getUser().getUsername().isEmpty() || animeList.getUser().getUsername() == null){
+                String erreur = "L'utilisateur n'existe pas !";
+                model.addAttribute("erreur", erreur);
+                return new ModelAndView("index", "model", model);
             }
             model.addAttribute("animeList", animeList);
         } catch (JAXBException e) {
-            return new ModelAndView("redirect:/erreur");
+            String erreur = "L'utilisateur n'existe pas !";
+            model.addAttribute("erreur", erreur);
+            return new ModelAndView("index", "model", model);
         }
         return new ModelAndView("animeList", "model", model);
     }
@@ -110,6 +122,7 @@ public class Accueil {
     @RequestMapping(value = "/searchAnime", method = RequestMethod.POST)
     public ModelAndView searchAnime(HttpServletRequest request, Model model) {
         String keyword = request.getParameter("keyword");
+        keyword = keyword.trim();
         keyword = keyword.replaceAll("\\s","+");
         Response reponse = clientRest.searchAnime(keyword);
         SearchList searchList = null;
@@ -119,11 +132,15 @@ public class Accueil {
             StringReader reader = new StringReader(reponse.readEntity(String.class));
             searchList = (SearchList) jaxbUnmarshaller.unmarshal(reader);
             if(searchList.getEntry().size()==0){
-                return new ModelAndView("redirect:/erreur");
+                String erreur = "Anime non trouvé, ou inexistant !";
+                model.addAttribute("erreur", erreur);
+                return new ModelAndView("index", "model", model);
             }
             model.addAttribute("searchList", searchList);
         } catch (JAXBException e) {
-            return new ModelAndView("redirect:/erreur");
+            String erreur = "Anime non trouvé, ou inexistant !";
+            model.addAttribute("erreur", erreur);
+            return new ModelAndView("index", "model", model);
         }
         return new ModelAndView("searchAnimeResult", "model", model);
     }

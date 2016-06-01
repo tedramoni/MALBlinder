@@ -22,6 +22,14 @@
     </div>
 </div>
 
+<div th:fragment="erreur">
+    <div th:if="${erreur!=null}" class="info message">
+        <h3>Une erreur est survenue !</h3>
+        <p th:text="${erreur.toString()}"></p>
+    </div>
+    <br/><br/>
+</div>
+
 <div th:fragment="footer">
     <div class="footer-container">
         <footer class="wrapper">

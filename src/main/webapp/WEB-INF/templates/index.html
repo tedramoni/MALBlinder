@@ -39,6 +39,8 @@
     <div class="main wrapper clearfix">
         <br/>
         <article>
+            <div th:include="layout/commun :: erreur"></div>
+
             <form th:action="@{/do}" th:method="post">
                 <label>Entrer l'id de l'anime pour récupérer ses openings</label><br/>
                 <input th:name="id" th:id="id" th:type="number" th:required="required" th:min="1"/><br/>
@@ -60,9 +62,9 @@
         <br/>
         <aside>
             <h3>Etats des APIs</h3>
-            <p>MALOPAPI: <span th:class="${ping?'green':'red'}" th:text="${ping?'OK':'NOK'}"></span></p>
-            <p>MAL: <span th:class="${ping?'green':'red'}" th:text="${ping?'OK':'NOK'}"></span></p>
-            <p>YOUTUBE v3: <span th:class="${ping?'green':'red'}" th:text="${ping?'OK':'NOK'}"></span></p>
+            <p>MALOPAPI: <span th:class="${session.ping?'green':'red'}" th:text="${session.ping?'OK':'NOK'}"></span></p>
+            <p>MAL: <span th:class="${session.ping?'green':'red'}" th:text="${session.ping?'OK':'NOK'}"></span></p>
+            <p>YOUTUBE v3: <span th:class="${session.ping?'green':'red'}" th:text="${session.ping?'OK':'NOK'}"></span></p>
         </aside>
     </div>
 </div>
