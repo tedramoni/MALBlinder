@@ -14,7 +14,7 @@
             <nav>
                 <ul>
                     <li><a th:href="@{/}">Accueil</a></li>
-                    <li><a th:href="@{/}">Infos</a></li>
+                    <li><a th:href="@{/blindtest}">BlindTest</a></li>
                     <li><a th:href="@{/}">Contact</a></li>
                 </ul>
             </nav>
@@ -23,11 +23,13 @@
 </div>
 
 <div th:fragment="erreur">
-    <div th:if="${erreur!=null}" class="info message">
-        <h3>Une erreur est survenue !</h3>
-        <p th:text="${erreur.toString()}"></p>
+    <div id="tooltipbox" th:if="${erreur!=null}">
+        <div id="tooltip_msg" class="info message">
+            <h3>Une erreur est survenue !</h3>
+            <p th:text="${erreur.toString()}"></p>
+        </div>
+        <br/><br/>
     </div>
-    <br/><br/>
 </div>
 
 <div th:fragment="footer">

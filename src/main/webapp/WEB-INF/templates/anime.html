@@ -21,31 +21,38 @@
     <link rel="stylesheet" th:href="@{/styles/normalize.min.css}"/>
     <link rel="stylesheet" th:href="@{/styles/malblinder.css}"/>
 
+    <script src="https://use.fontawesome.com/caf5a2c347.js"></script>
     <script th:src="@{/ressources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
+    <script th:src="@{/ressources/js/youtube.js}"></script>
 </head>
 <body>
 <div th:include="layout/commun :: header"></div>
 <div class="main-container">
     <div class="main wrapper clearfix">
         <article>
-        <h1 th:text="${anime.getTitre() +' (id: '+anime.getId()+')'}"/>
-        <hr/>
-        <h2>Openings</h2>
-        <div th:if="${anime.getOpenings().size() gt 0}" th:each="i: ${#numbers.sequence(1, (anime.getOpenings().size()))}">
-            <a target="_blank"
-               th:text="${anime.getOpening(i).getTitle() + ' de ' + anime.getOpening(i).getArtist()}"
-               th:href="${'https://www.youtube.com/watch?v='+videos.get(i).getVideoId()}"/>
-            <br/>
-        </div>
-        <hr/>
+            <h1 th:text="${anime.getTitre() +' (id: '+anime.getId()+')'}"/>
+            <hr/>
+            <h2>
+                Openings
+                <span class="tooltip" data-tooltip="Cliquer sur un titre pour charger l'opening">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </span>
+            </h2>
+            <div th:if="${anime.getOpenings().size() gt 0}"
+                 th:each="i: ${#numbers.sequence(1, (anime.getOpenings().size()))}">
+                <a class="first after" href="#player"
+                   th:text="${anime.getOpening(i).getTitle() + ' de ' + anime.getOpening(i).getArtist()}"
+                   th:attr="onclick='player.loadVideoById(\''+${videos.get(i).getVideoId()}+'\')'"/>
+                <br/>
+            </div>
+            <hr/>
             <div th:if="${anime.getOpenings().size() gt 0}">
-        <h2 th:if="${opening!=null}"
-            th:text="${'Random Opening : ('+opening.getTitle()+' '+opening.getArtist()+')'}"></h2>
-        <img th:if="${opening!=null}" th:src="${video.getImageLink()}"/>
-        <br/>
-        <iframe width="560" height="315" th:src="${'https://www.youtube.com/embed/'+video.getVideoId()+'?autoplay=1'}"
-                frameborder="0"></iframe>
-                </div>
+                <h2 id="randomOpening" th:class="${video.getVideoId()}" th:if="${opening!=null}"
+                    th:text="${'Random Opening : ('+opening.getTitle()+' '+opening.getArtist()+')'}"></h2>
+                <img th:if="${opening!=null}" th:src="${video.getImageLink()}"/>
+                <br/>
+                <div id="player"></div>
+            </div>
         </article>
     </div>
 </div>

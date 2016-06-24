@@ -26,8 +26,8 @@
 
     <link rel="stylesheet" th:href="@{/styles/normalize.min.css}"/>
     <link rel="stylesheet" th:href="@{/styles/malblinder.css}"/>
-    <script src="https://use.fontawesome.com/caf5a2c347.js"></script>
 
+    <script src="https://use.fontawesome.com/caf5a2c347.js"></script>
     <script th:src="@{/ressources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js}"></script>
 </head>
 <body>
@@ -38,35 +38,30 @@
 <div th:include="layout/commun :: header"></div>
 <div class="main-container">
     <div class="main wrapper clearfix">
-        <br/>
         <article>
+            <h1 th:text="BlindTest"/>
+            <hr/>
+
             <div th:include="layout/commun :: erreur"></div>
 
-            <form th:action="@{/do}" th:method="post">
-                <label>Entrer l'id de l'anime pour récupérer ses openings</label><br/>
-                <input th:name="id" th:id="id" th:type="number" th:required="required" th:min="1"/><br/>
-                <button th:type="submit">Envoyer</button>
-            </form>
-            <br/>
-            <form th:action="@{/searchAnime}" th:method="post">
-                <label>Entrer le nom d'un anime</label><br/>
-                <input th:name="keyword" th:id="keyword" th:type="text" th:required="required"/><br/>
-                <button th:type="submit">Envoyer</button>
-            </form>
-            <br/>
-            <form th:action="@{/getAnimeList}" th:method="post">
-                <label>Entrer votre pseudo</label><br/>
-                <input th:name="pseudo" th:id="pseudo" th:type="text" th:required="required"/><br/>
-                <button th:type="submit">Envoyer</button>
+            <form th:action="@{/}" th:method="post">
+                <h2>
+                    <a class="first after" href="#" id="addScnt">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Ajouter un compte myanimelist.net
+                    </a>
+                </h2>
+
+                <div id="p_scents">
+                    <p>
+                        <label class="fieldCompte" for="p_scnt">
+                            <input th:required="required" type="text" size="20" id="p_scnt" name="p_scnt" value="" placeholder="Pseudo myanimelist" onblur="validateUser($(this).val())?$(this).css('border-color', 'green') : $(this).css('border-color', 'red');" />
+                        </label>
+                    </p>
+                </div>
+                <button th:type="submit" th:disabled="disabled">Envoyer</button>
             </form>
         </article>
-        <br/>
-        <aside>
-            <h3>Etat des APIs</h3>
-            <p>MALOPAPI: <span th:class="${session.ping?'green':'red'}" th:text="${session.ping?'OK':'NOK'}"></span></p>
-            <p>MAL: <span th:class="${session.ping?'green':'red'}" th:text="${session.ping?'OK':'NOK'}"></span></p>
-            <p>YOUTUBE v3: <span th:class="${session.ping?'green':'red'}" th:text="${session.ping?'OK':'NOK'}"></span></p>
-        </aside>
     </div>
 </div>
 <div th:include="layout/commun :: footer"></div>

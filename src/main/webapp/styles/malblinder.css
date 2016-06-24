@@ -334,44 +334,44 @@ label {
 
 /* Boîte d'alertes */
 
-.message{
+.message {
     background-size: 40px 40px;
     background-image: linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%,
     transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%,
     transparent 75%, transparent);
-    box-shadow: inset 0 -1px 0 rgba(255,255,255,.4);
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .4);
     border: 1px solid;
     color: #fff;
     padding: 15px;
-    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
     animation: animate-bg 5s linear infinite;
 }
 
-.info{
+.info {
     background-color: #4ea5cd;
     border-color: #3b8eb5;
 }
 
-.error{
+.error {
     background-color: #de4343;
     border-color: #c43d3d;
 }
 
-.warning{
+.warning {
     background-color: #eaaf51;
     border-color: #d99a36;
 }
 
-.success{
+.success {
     background-color: #61b832;
     border-color: #55a12c;
 }
 
-.message h3{
+.message h3 {
     margin: 0 0 5px 0;
 }
 
-.message p{
+.message p {
     margin: 0;
 }
 
@@ -382,6 +382,45 @@ label {
     to {
         background-position: -80px 0;
     }
+}
+
+span.tooltip {
+    position: relative;
+}
+
+span[data-tooltip]:before {
+    position: absolute;
+    left: 0;
+    top: -40px;
+    background-color: #1d439b;
+    color: #ffffff;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    padding: 0 15px;
+    content: attr(data-tooltip);
+    white-space: nowrap;
+    display: none;
+}
+
+span[data-tooltip]:after {
+    position: absolute;
+    left: 15px;
+    top: -10px;
+    border-top: 7px solid #1d439b;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: "";
+    display: none;
+}
+
+span[data-tooltip]:hover:after, span[data-tooltip]:hover:before {
+    display: block;
+}
+
+.fieldCompte, .supprCompte {
+    display: inline-block;
+    margin-right: 10px;
 }
 
 /* ==========================================================================
@@ -608,4 +647,50 @@ label {
     h3 {
         page-break-after: avoid;
     }
+
+}
+
+a.after, a.after:visited, a.after:hover, a.after:active {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: relative;
+    transition: 0.5s color ease;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+a.after:hover {
+    color: #1d439b;
+}
+
+a.before:before, a.after:after {
+    content: "";
+    transition: 0.5s all ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+}
+
+a.before:before {
+    top: -0.25em;
+}
+
+a.after:after {
+    bottom: -0.25em;
+}
+
+a.before:before, a.after:after {
+    height: 5px;
+    height: 0.35rem;
+    width: 0;
+    background: #1d439b;
+}
+
+a.first:after {
+    left: 0;
+}
+
+a.before:hover:before, a.after:hover:after {
+    width: 100%;
 }
