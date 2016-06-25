@@ -52,10 +52,12 @@ $(document).ready(function () {
 $(function () {
     var scntDiv = $('#p_scents');
     var i = $('#p_scents p').size() + 1;
+    var j = $('#p_scents p').size();
 
     $('body').on('click', '#addScnt', function () {
-        $('<p><label class="fieldCompte" size="20" required="required" for="p_scnt"><input type="text" id="p_scnt" name="p_scnt_' + i + '" value="" placeholder="Pseudo myanimelist" onblur="validateUser($(this).val())?$(this).css(\'border-color\', \'green\') : $(this).css(\'border-color\', \'red\');" /></label> <a class="first after supprCompte" href="#" id="remScnt"> <i class="fa fa-minus" aria-hidden="true"></i> Supprimer</a></p>').appendTo(scntDiv);
+        $('<p><label class="fieldCompte" size="20" required="required" for="p_scnt"><input type="text" id="p_scnt" name="users['+j+'].username" value="" placeholder="Pseudo myanimelist" onblur="validateUser($(this).val())?$(this).css(\'border-color\', \'green\') : $(this).css(\'border-color\', \'red\');" /></label> <a class="first after supprCompte" href="#" id="remScnt"> <i class="fa fa-minus" aria-hidden="true"></i> Supprimer</a></p>').appendTo(scntDiv);
         i++;
+        j++;
         return false;
     });
 
@@ -63,6 +65,7 @@ $(function () {
         if (i > 2) {
             $(this).parents('p').remove();
             i--;
+            j--;
         }
         return false;
     });

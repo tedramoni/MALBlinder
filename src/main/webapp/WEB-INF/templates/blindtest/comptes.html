@@ -44,7 +44,7 @@
 
             <div th:include="layout/commun :: erreur"></div>
 
-            <form th:action="@{/}" th:method="post">
+            <form th:action="@{/blindtest/process}" th:method="post" th:object="${userList}">
                 <h2>
                     <a class="first after" href="#" id="addScnt">
                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -55,11 +55,11 @@
                 <div id="p_scents">
                     <p>
                         <label class="fieldCompte" for="p_scnt">
-                            <input th:required="required" type="text" size="20" id="p_scnt" name="p_scnt" value="" placeholder="Pseudo myanimelist" onblur="validateUser($(this).val())?$(this).css('border-color', 'green') : $(this).css('border-color', 'red');" />
+                            <input th:field="*{users[0].username}" th:required="required" type="text" size="20" id="p_scnt" name="p_scnt[]" value="" placeholder="Pseudo myanimelist" onblur="validateUser($(this).val())?$(this).css('border-color', 'green') : $(this).css('border-color', 'red');" />
                         </label>
                     </p>
                 </div>
-                <button th:type="submit" th:disabled="disabled">Envoyer</button>
+                <button th:type="submit">Envoyer</button>
             </form>
         </article>
     </div>
