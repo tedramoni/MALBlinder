@@ -45,12 +45,6 @@
             <div th:include="layout/commun :: erreur"></div>
 
             <form th:action="@{/blindtest/process}" th:method="post" th:object="${userList}">
-                <h2>
-                    <a class="first after" href="#" id="addScnt">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    Ajouter un compte myanimelist.net
-                    </a>
-                </h2>
 
                 <div id="p_scents">
                     <p>
@@ -59,6 +53,14 @@
                         </label>
                     </p>
                 </div>
+
+                <h2>
+                    <a class="first after" href="#" id="addScnt">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Ajouter un compte myanimelist.net
+                    </a>
+                </h2>
+
                 <button th:type="submit">Envoyer</button>
             </form>
         </article>

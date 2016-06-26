@@ -77,6 +77,14 @@ public class Anime {
             return openings.get(index);
     }
 
+    @JsonIgnore
+    public boolean hasOpening(){
+        boolean hasOpening;
+        if (openings.size() == 0) hasOpening = false;
+        else hasOpening = true;
+        return hasOpening;
+    }
+
     public void addOpening(Integer id, Opening opening){
         this.openings.put(id, opening);
     }
@@ -89,4 +97,5 @@ public class Anime {
                 ", titre='" + titre + '\'' +
                 '}';
     }
+
 }

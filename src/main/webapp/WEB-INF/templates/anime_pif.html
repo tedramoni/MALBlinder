@@ -32,12 +32,24 @@
         <article>
             <h1 th:text="${anime.getTitre() +' (id: '+anime.getId()+')'}"/>
             <hr/>
+
+            <div th:include="layout/commun :: erreur"></div>
+
             <h2 id="randomOpening" th:class="${video.getVideoId()}" th:if="${opening!=null}"
                     th:text="${'Opening : ('+opening.getTitle()+' '+opening.getArtist()+')'}"></h2>
                 <img th:if="${opening!=null}" th:src="${video.getImageLink()}"/>
                 <br/>
             <div id="player"></div>
+            <br/><br/>
+            <a th:href="@{/blindtest/process/again}"><button>Suivant</button></a>
         </article>
+        <br/>
+        <aside>
+            <h3>Les sacs qui doivent trouver cet opening sont :</h3>
+            <div th:each="sac : ${sacs}">
+                <p th:text="${sac.toString()}"></p>
+            </div>
+        </aside>
     </div>
 </div>
 <div th:include="layout/commun :: footer"></div>

@@ -89,7 +89,6 @@ function validateUser(user) {
         success: function (xml) {
             test = $(xml).find('error').first().text() == 'Invalid username' ? false : true;
             test ? set_existe(true) : set_existe(false);
-            alert(test ? 'Le compte ' + user + ' existe !' : 'Le compte ' + user + ' n\'existe pas !');
         },
         error:function(exception){console.log('Exeption:'+exception);}
     });

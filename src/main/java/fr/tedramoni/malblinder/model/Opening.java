@@ -25,6 +25,10 @@ public class Opening {
     public Opening() {
     }
 
+    public Opening(Integer id) {
+        this.id = id ;
+    }
+
     public String getTitle() {
         return title;
     }
