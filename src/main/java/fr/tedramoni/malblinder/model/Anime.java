@@ -7,6 +7,7 @@ import org.junit.Ignore;
 import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -29,6 +30,8 @@ public class Anime {
     private Map<Integer,Opening> openings;
 
     private String img;
+
+    private String status;
 
     private Random random;
 
@@ -62,6 +65,15 @@ public class Anime {
         this.img = img;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    @XmlElement(name="my_status")
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Map<Integer, Opening> getOpenings() {
         return openings;
     }
@@ -72,7 +84,7 @@ public class Anime {
 
     @JsonIgnore
     public Opening getRandomOpening(){
-            random = new Random();
+            random = new SecureRandom();
             int index = random.nextInt(openings.size() - 1 + 1) + 1;
             return openings.get(index);
     }
@@ -95,6 +107,7 @@ public class Anime {
                 "openings=" + openings +
                 ", id=" + id +
                 ", titre='" + titre + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 

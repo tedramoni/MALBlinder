@@ -41,6 +41,8 @@ public class Search implements ISearch {
      */
     private String apiKey;
 
+    public String BANNED_KEYWORDS = "|Nightcore|Cover|Remix|OSU|Live|Synthesia";
+
     private static final long NUMBER_OF_VIDEOS_RETURNED = 1;
 
     /**
@@ -53,6 +55,7 @@ public class Search implements ISearch {
 
     @Override
     public Video go(String keywords) {
+        keywords = keywords + " " + BANNED_KEYWORDS;
         Video video = new Video();
         try {
             // This object is used to make YouTube Data API requests. The last

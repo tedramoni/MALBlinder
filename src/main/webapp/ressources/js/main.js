@@ -55,7 +55,7 @@ $(function () {
     var j = $('#p_scents p').size();
 
     $('body').on('click', '#addScnt', function () {
-        $('<p><label class="fieldCompte" size="20" required="required" for="p_scnt"><input type="text" id="p_scnt" name="users['+j+'].username" value="" placeholder="Pseudo myanimelist" onblur="validateUser($(this).val())?$(this).css(\'border-color\', \'green\') : $(this).css(\'border-color\', \'red\');" /></label> <a class="first after supprCompte" href="#" id="remScnt"> <i class="fa fa-minus" aria-hidden="true"></i> Supprimer</a></p>').appendTo(scntDiv);
+        $('<p><label class="fieldCompte" size="20" required="required" for="p_scnt"><input type="text" id="p_scnt" name="users[' + j + '].username" value="" placeholder="Pseudo myanimelist" onblur="validateUser($(this).val())?$(this).css(\'border-color\', \'green\') : $(this).css(\'border-color\', \'red\');" /></label> <a class="first after supprCompte" href="#" id="remScnt"> <i class="fa fa-minus" aria-hidden="true"></i> Supprimer</a></p>').appendTo(scntDiv);
         i++;
         j++;
         return false;
@@ -74,7 +74,7 @@ $(function () {
 function validateUser(user) {
     var existe;
 
-    function set_existe(x){
+    function set_existe(x) {
         existe = x;
     }
 
@@ -90,12 +90,47 @@ function validateUser(user) {
             test = $(xml).find('error').first().text() == 'Invalid username' ? false : true;
             test ? set_existe(true) : set_existe(false);
         },
-        error:function(exception){console.log('Exeption:'+exception);}
+        error: function (exception) {
+            console.log('Exeption:' + exception);
+        }
     });
-    if(existe == true){
+    if (existe == true) {
         return true;
     }
     else {
         return false;
     }
 }
+
+function startup() {
+    $("#titre").hide();
+    $("#randomOpening").hide();
+    $("#openingImg").hide();
+    $("#player").hide();
+    $("#sacs").hide();
+}
+$(document).ready(function () {
+
+    window.onload = startup();
+
+    $("#hide").click(function () {
+        $("#titre").hide();
+        $("#randomOpening").hide();
+        $("#openingImg").hide();
+        $("#player").hide();
+        $("#sacs").hide();
+    });
+
+    $("#show").click(function () {
+        $("#titre").show();
+        $("#randomOpening").show();
+        $("#openingImg").show();
+        $("#player").show();
+        $("#sacs").show();
+    });
+
+    $("#revealSacs").click(function () {
+        $("#sacs").show();
+    });
+
+});

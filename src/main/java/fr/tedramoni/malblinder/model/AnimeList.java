@@ -2,7 +2,9 @@ package fr.tedramoni.malblinder.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -23,7 +25,7 @@ public class AnimeList {
     public AnimeList(int id) {
         this.id = id;
         animes = new ArrayList<Anime>();
-        random = new Random();
+        random = new SecureRandom();
     }
 
     public AnimeList() {
@@ -33,7 +35,7 @@ public class AnimeList {
         return user;
     }
 
-    @XmlElement(name="myinfo")
+    @XmlElement(name = "myinfo")
     public void setUser(User user) {
         this.user = user;
     }
@@ -42,7 +44,7 @@ public class AnimeList {
         return animes;
     }
 
-    @XmlElement(name="anime")
+    @XmlElement(name = "anime")
     public void setAnimes(List<Anime> animes) {
         this.animes = animes;
     }
@@ -75,6 +77,16 @@ public class AnimeList {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void removePTW() {
+        List<Anime> list = new ArrayList<Anime>();
+        for (Anime anime: this.animes){
+            if(anime.getStatus().equals("6")){
+                list.add(anime);
+            }
+        }
+        this.animes.removeAll(list);
     }
 }
 

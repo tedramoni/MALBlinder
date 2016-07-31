@@ -62,7 +62,7 @@ public class ClientTest {
 
     @Test
     public void testGetAnimeVideo() {
-        Response reponse = client.getAnime("5081");
+        Response reponse = client.getAnime("32245");
         ObjectMapper mapper = new ObjectMapper();
         Anime anime = null;
         try {
@@ -79,24 +79,25 @@ public class ClientTest {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        assertEquals("Bakemonogatari", anime.getTitre());
+        assertEquals("Kuromukuro", anime.getTitre());
     }
 
     @Test
     public void testGetAnimeList() {
-        Response reponse = client.getAnimeList("Kmeuh");
+        Response reponse = client.getAnimeList("Elstorm92");
         AnimeList animeList = null;
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(AnimeList.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             StringReader reader = new StringReader(reponse.readEntity(String.class));
             animeList = (AnimeList) jaxbUnmarshaller.unmarshal(reader);
+            animeList.removePTW();
             log.debug(animeList);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
         log.debug("Animes dans la liste :" + animeList.getAnimes().size());
-        assertEquals("Kmeuh", animeList.getUser().getUsername());
+        assertEquals("Elstorm92", animeList.getUser().getUsername());
     }
 
     @Test

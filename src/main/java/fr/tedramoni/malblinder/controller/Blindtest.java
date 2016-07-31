@@ -58,6 +58,7 @@ public class Blindtest {
                 animeList = (AnimeList) jaxbUnmarshaller.unmarshal(reader);
                 animeList.setId(i);
                 i = ++i;
+                animeList.removePTW();
                 usersAnimeList.add(animeList);
                 request.getSession().setAttribute("usersAnimeList", usersAnimeList);
                 for (Anime anime : animeList.getAnimes()) {
@@ -114,7 +115,7 @@ public class Blindtest {
         model.addAttribute("anime", randomAnime);
         Opening opening = randomAnime.getRandomOpening();
         model.addAttribute("opening", opening);
-        String keywords = opening.getTitle() + " " + opening.getArtist();
+        String keywords = opening.getTitle() + " " + opening.getArtist() + " ";
         Video video = search.go(keywords);
         model.addAttribute("video", video);
         return model;

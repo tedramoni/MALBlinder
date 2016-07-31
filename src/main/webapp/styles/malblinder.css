@@ -423,6 +423,10 @@ span[data-tooltip]:hover:after, span[data-tooltip]:hover:before {
     margin-right: 10px;
 }
 
+.titre {
+    display:none;
+}
+
 /* ==========================================================================
    Media Queries
    ========================================================================== */
