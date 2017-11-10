@@ -43,6 +43,20 @@ public class ClientTest {
     }
 
     @Test
+    public void pingMAL() {
+        Boolean pong = false;
+        pong = client.pingMAL();
+        assertEquals(true, pong);
+    }
+
+    @Test
+    public void pingYT() {
+        Boolean pong = false;
+        pong = client.pingYT();
+        assertEquals(true, pong);
+    }
+
+    @Test
     public void testGetAnime() {
         Response reponse = client.getAnime("21");
         ObjectMapper mapper = new ObjectMapper();
@@ -62,12 +76,13 @@ public class ClientTest {
 
     @Test
     public void testGetAnimeVideo() {
-        Response reponse = client.getAnime("32245");
+        //Response reponse = client.getAnime("32245");
+        Response reponse = client.getAnime("12875");
         ObjectMapper mapper = new ObjectMapper();
         Anime anime = null;
         try {
             anime = mapper.readValue(reponse.readEntity(String.class), Anime.class);
-            Opening opening = anime.getRandomOpening();
+            Opening opening = anime.getOpening(1);
             String keywords = opening.getTitle() + " " + opening.getArtist();
             log.debug(keywords);
             Video video = search.go(keywords);

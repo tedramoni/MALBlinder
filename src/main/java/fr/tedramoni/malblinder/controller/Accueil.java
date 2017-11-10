@@ -43,7 +43,11 @@ public class Accueil {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView accueil(HttpServletRequest request, Model model) {
         Boolean ping = clientRest.ping();
+        Boolean ping2 = clientRest.pingMAL();
+        Boolean ping3 = clientRest.pingYT();
         request.getSession().setAttribute("ping", ping);
+        request.getSession().setAttribute("ping2", ping2);
+        request.getSession().setAttribute("ping3", ping3);
         return new ModelAndView("index", "model", model);
     }
 

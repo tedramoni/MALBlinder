@@ -24,6 +24,10 @@ public class RestAPIConfig {
     private String referer;
     @Value( "${mal.uri}" )
     private String malUri;
+    @Value( "${mal.root}" )
+    private String malRoot;
+    @Value( "${yt.url}" )
+    private String ytUri;
 
 
     @Bean
@@ -35,6 +39,8 @@ public class RestAPIConfig {
         client.setRecette(recette);
         client.setReferer(referer);
         client.setMalUri(malUri);
+        client.setMalRoot(malRoot);
+        client.setYtUri(ytUri);
         client.initClient();
         return client;
     }

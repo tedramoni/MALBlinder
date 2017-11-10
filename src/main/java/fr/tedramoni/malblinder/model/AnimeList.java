@@ -81,9 +81,13 @@ public class AnimeList {
 
     public void removePTW() {
         List<Anime> list = new ArrayList<Anime>();
-        for (Anime anime: this.animes){
-            if(anime.getStatus().equals("6")){
-                list.add(anime);
+        for (Anime anime: this.animes) {
+            if(anime != null){
+                if (anime.getStatus() != null) {
+                    if (anime.getStatus().equals("6") || anime.getStatus().equals("4")) {
+                        list.add(anime);
+                    }
+                }
             }
         }
         this.animes.removeAll(list);

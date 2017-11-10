@@ -41,7 +41,7 @@ public class Search implements ISearch {
      */
     private String apiKey;
 
-    public String BANNED_KEYWORDS = "|Nightcore|Cover|Remix|OSU|Live|Synthesia";
+    public String BANNED_KEYWORDS = " -Nightcore";
 
     private static final long NUMBER_OF_VIDEOS_RETURNED = 1;
 
@@ -55,7 +55,7 @@ public class Search implements ISearch {
 
     @Override
     public Video go(String keywords) {
-        keywords = keywords + " " + BANNED_KEYWORDS;
+        //keywords = keywords + BANNED_KEYWORDS;
         Video video = new Video();
         try {
             // This object is used to make YouTube Data API requests. The last
@@ -69,7 +69,7 @@ public class Search implements ISearch {
             }).setApplicationName("youtube-cmdline-search-sample").build();
 
             // Define the API request for retrieving search results.
-            YouTube.Search.List search = youtube.search().list("id,snippet");
+            YouTube.Search.List search = youtube.search().list("snippet");
 
             // Set your developer key from the Google Developers Console for
             // non-authenticated requests. See:
@@ -84,8 +84,9 @@ public class Search implements ISearch {
 
             // To increase efficiency, only retrieve the fields that the
             // application uses.
-            search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+            //search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+            search.setOrder("relevance");
 
             // Call the API and print results.
             SearchListResponse searchResponse = search.execute();

@@ -12,6 +12,10 @@ public interface IClientRest {
 
     public Boolean ping();
 
+    public Boolean pingMAL();
+
+    public Boolean pingYT();
+
     public Response getAnime(String id);
 
     public Response getAnimeList(String pseudo);

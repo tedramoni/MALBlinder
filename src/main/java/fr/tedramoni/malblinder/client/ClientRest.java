@@ -33,6 +33,8 @@ public class ClientRest implements IClientRest{
     private boolean recette;
     private String referer;
     private String malUri;
+    private String malRoot;
+    private String ytUri;
 
     private Client client;
 
@@ -141,6 +143,14 @@ public class ClientRest implements IClientRest{
         this.malUri = malUri;
     }
 
+    public void setYtUri(String ytUri) {
+        this.ytUri = ytUri;
+    }
+
+    public void setMalRoot(String malRoot) {
+        this.malRoot = malRoot;
+    }
+
     public void setClient(Client client) {
         this.client = client;
     }
@@ -164,6 +174,26 @@ public class ClientRest implements IClientRest{
         return pong;
     }
 
+    public Boolean pingMAL() {
+        Boolean pong = false;
+        WebTarget target =client.target(malRoot);
+        Response response = target.
+                request().
+                get(Response.class);
+        if(response.getStatus()==200) pong = true;
+        return pong;
+    }
+
+    public Boolean pingYT() {
+        Boolean pong = false;
+        WebTarget target =client.target(ytUri);
+        Response response = target.
+                request().
+                get(Response.class);
+        if(response.getStatus()==403) pong = true;
+        return pong;
+    }
+
     public Response getAnime(String id) {
         WebTarget target =client.target(uri);
         Response response = target.
@@ -184,7 +214,7 @@ public class ClientRest implements IClientRest{
     }
 
     public Response searchAnime(String keyword) {
-        WebTarget target =client.target("http://myanimelist.net/api/anime/search.xml?q="+keyword);
+        WebTarget target =client.target("https://myanimelist.net/api/anime/search.xml?q="+keyword);
         Response response = target.
                 request().
                 get(Response.class);

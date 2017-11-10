@@ -104,6 +104,8 @@ public class Blindtest {
     public Model randomizer(HttpServletRequest request, Model model) throws IOException {
         AnimeList animeList_final = (AnimeList) request.getSession().getAttribute("animeList_final");
         Anime basicRandomAnime = animeList_final.getRandomAnime();
+        animeList_final.getAnimes().remove(basicRandomAnime);
+        request.getSession().setAttribute("animeList_final", animeList_final);
         Response reponse2 = clientRest.getAnime(basicRandomAnime.getId().toString());
         ObjectMapper mapper = new ObjectMapper();
         Anime randomAnime = mapper.readValue(reponse2.readEntity(String.class), Anime.class);
